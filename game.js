@@ -134,29 +134,21 @@ var initMouseEvents = function () {
     }, false);
 
     addEventListener("mousedown", function (event) {
-        if (window.event)
-            event = window.event; //IE
-
         _leftMouseDown = true;
 
         mouseDown(event.clientX, event.clientY);
     }, false);
 
     addEventListener("click", function () {
-        if (window.event)
-            event = window.event; //IE
-
-        click(event.clientX, event.clientY);
+        click(window.event.clientX, window.event.clientY);
     }, false);
 }
 
 var initImages = function () {
     grass1Image.onload = function () {
         grass1Ready = true;
-        //grass1Image = ColorizeImage(grassImage, 30, 20, 0, 30, 0);
     }
     grass1Image.src = "img/grass3.png";
-    //grass1Image.src = "img/grass1.png";
 
     resourceImage.onload = function () {
         resourceReady = true;
@@ -346,19 +338,12 @@ var draw = function (modifier) {
 }
 
 var drawBackground = function () {
-    //ctx.fillStyle = "white";
-    //ctx.fillRect(map.X, map.Y, map.Width, map.Height);
-
-    //var cols = map.Width / 30;
-    //var rows = map.Height / 20;
     var cols = map.Width / 300;
     var rows = map.Height / 200;
 
     for (var c = 0; c < cols; c++) {
         for (var r = 0; r < rows; r++) {
             if (grass1Ready) {
-                //ctx.putImageData(grass1Image, c * 30 + map.X, r * 20 + map.Y);	
-                //ctx.drawImage(grass1Image, c * 30 + map.X, r * 20 + map.Y);	
                 ctx.drawImage(grass1Image, c * 300 + map.X, r * 200 + map.Y);
             }
         }
