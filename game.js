@@ -1,62 +1,71 @@
 // Game 
 
-var canvas;
-var ctx;
-var then;
-var showDevText = false;
+// var canvas;
+// var ctx;
+// var then;
+// var showDevText = false;
 
-var _keys = {};
-var _leftMouseDown = false;
-var _mousePoint = { x: 0, y: 0 };
-var _mouseOutSide = false;
-var _canvasCenter;
-var _screenRect;
-var _previousKey = 0;
+// var _keys = {};
+// var _leftMouseDown = false;
+// var _mousePoint = { x: 0, y: 0 };
+// var _mouseOutSide = false;
+// var _canvasCenter;
+// var _screenRect;
+// var _previousKey = 0;
 
-var map;
-var mapView;
-var leftScreenMoveRect;
-var topScreenMoveRect;
-var rightScreenMoveRect;
-var bottomScreenMoveRect;
-var screenMoveTick = 3;
-var screenMoveElapsed = 0;
-var screenMoveStates = { left: 0, top: 0, right: 0, bottom: 0 };
-var showMap = false;
+// var map;
+// var mapWidth = 3000;
+// var mapHeight = 2000;
+// var mapView;
+// var leftScreenMoveRect;
+// var topScreenMoveRect;
+// var rightScreenMoveRect;
+// var bottomScreenMoveRect;
+// var screenMoveTick = 3;
+// var screenMoveElapsed = 0;
+// var screenMoveStates = { left: 0, top: 0, right: 0, bottom: 0 };
+// var showMap = false;
 
-var grass1Image = new Image();
-var grass1Ready = false;
+// var grass1Image = new Image();
+// var grass1Ready = false;
 
-var maxResources;
-var resourceSize = 15;
-var resourceImageDataList = [];
-var resourceImage = new Image();
-var resourceReady = false;
+// var maxResources;
+// var resourceSize = 20;
+// var minRandomResourceCount = 150;
+// var maxRandomResourceCount = 250;
+// var resourceImageDataList = [];
+// var resourceImage = new Image();
+// var resourceReady = false;
 
-var horizontalScreenMoveImage = new Image();
-var horizontalScreenMoveReady = false;
+// var horizontalScreenMoveImage = new Image();
+// var horizontalScreenMoveReady = false;
 
-var verticalScreenMoveImage = new Image();
-var verticalScreenMoveReady = false;
+// var verticalScreenMoveImage = new Image();
+// var verticalScreenMoveReady = false;
 
-var cpuImage = new Image();
-var cpuReady = false;
+// var cpuStartingHP = 1000;
+// var cpuStartSize = 50;
+// var cpuImage = new Image();
+// var cpuReady = false;
 
-var bot1Image = new Image();
-var bot1Ready = false;
+// var startingBotSize = 15;
+// var startingBotSpeed = 50;
+// var bot1Image = new Image();
+// var bot1Ready = false;
 
-var bot2Image = new Image();
-var bot2Ready = false;
+// var bot2Image = new Image();
+// var bot2Ready = false;
 
-var rogue1Image = new Image();
-var rogue1Ready = false;
+// var rogueBotStartSize = 25;
+// var rogue1Image = new Image();
+// var rogue1Ready = false;
 
-var cpuList = [];
-var resources = [];
-var rogueBots = [];
+// var cpuList = [];
+// var resources = [];
+// var rogueBots = [];
 
-var selectedGameObject = null;
-var actionMenu = null;
+// var selectedGameObject = null;
+// var actionMenu = null;
 
 
 var init = function () {
@@ -189,13 +198,13 @@ var initImages = function () {
 var intiGameVariables = function () {
     initMap();
 
-    cpuList.push(new CPU(400, 400, 50, 50, "yellow", cpuImage));
-    cpuList.push(new CPU(800, 800, 50, 50, "blue", cpuImage));
-    cpuList.push(new CPU(1200, 1200, 50, 50, "red", cpuImage));
-    cpuList.push(new CPU(1600, 1400, 50, 50, "purple", cpuImage));
-    cpuList.push(new CPU(2900, 1900, 50, 50, "orange", cpuImage));
+    cpuList.push(new CPU(400, 400, cpuStartSize, cpuStartSize, "yellow", cpuImage));
+    cpuList.push(new CPU(800, 800, cpuStartSize, cpuStartSize, "blue", cpuImage));
+    cpuList.push(new CPU(1200, 1200, cpuStartSize, cpuStartSize, "red", cpuImage));
+    cpuList.push(new CPU(1600, 1400, cpuStartSize, cpuStartSize, "purple", cpuImage));
+    cpuList.push(new CPU(2900, 1900, cpuStartSize, cpuStartSize, "orange", cpuImage));
 
-    maxResources = RandomBetween(150, 250);
+    maxResources = RandomBetween(minRandomResourceCount, maxRandomResourceCount);
 
 
     for (var i = 0; i < maxResources; i++) {
@@ -227,7 +236,7 @@ var intiGameVariables = function () {
 }
 
 var initMap = function () {
-    map = new Rect(0, 0, 3000, 2000);
+    map = new Rect(0, 0, mapWidth, mapHeight);
     mapView = new Rect(
 		_screenRect.Width - 150 - 10, _screenRect.Height - 100 - 10, 150, 100);
 
@@ -626,7 +635,7 @@ var clickMapView = function (mouseRect) {
 
 var addRogueBot = function (location, selected) {
     var rogue = new RogueBot(
-		location.X + map.X, location.Y + map.Y, 20, 20, rogue1Image);
+		location.X + map.X, location.Y + map.Y, rogueBotStartSize, rogueBotStartSize, rogue1Image);
     rogue.Selected = selected;
     rogueBots.push(rogue);
 }
@@ -649,7 +658,7 @@ function CPU(x, y, width, height, color, image) {
 
     this.Defending = false;
 
-    this.HP = 1000;
+    this.HP = cpuStartingHP;
     this.MaxHP = this.HP;
 
     this.Description = [];
@@ -801,7 +810,7 @@ function Bot(parentCPU) {
     this.Title = "BOT"
     this.Image = null;
     this.Selected = false;
-    this.Bounds = new Rect(0, 0, 10, 10);
+    this.Bounds = new Rect(0, 0, startingBotSize, startingBotSize);
     this.PayloadUnits = 0;
     this.MaxPayload = 10;
     this.CurrentResource = null;
@@ -809,7 +818,7 @@ function Bot(parentCPU) {
     this.ParentCPU = parentCPU;
     this.Color = this.ParentCPU.Color;
     this.States = { Searching: 1, Harvesting: 0, Defending: 0, Mutating: 0 };
-    this.Speed = 50;
+    this.Speed = startingBotSpeed;
     this.PayloadsCollected = 0;
 
     // After each payload collected, a random change will increase
