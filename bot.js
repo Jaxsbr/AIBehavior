@@ -346,6 +346,20 @@ Bot.prototype.DrawHPBar = function () {
 
 Bot.prototype.DrawDebug = function () {
     if (showDebug) {
+
+        if (this.States.Searching === 1) {
+            ctx.save();
+            ctx.globalAlpha = 0.4;
+            ctx.fillStyle = 'violet';
+            ctx.fillRect(
+                this.ScanRect.X + map.X, 
+                this.ScanRect.Y + map.Y, 
+                this.ScanRect.Width, 
+                this.ScanRect.Height);
+            ctx.restore();
+        }
+
+
         ctx.strokeStyle = 'red';
         ctx.strokeRect(
             this.Bounds.X + map.X,

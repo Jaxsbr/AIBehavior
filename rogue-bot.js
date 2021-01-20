@@ -146,5 +146,17 @@ RogueBot.prototype.DrawDebug = function () {
             this.Bounds.Y + map.Y,
             this.Bounds.Width, 
             this.Bounds.Height);
+
+            if (this.Target) {
+                ctx.strokeStyle = 'yellow';
+                ctx.beginPath();
+                ctx.moveTo(
+                    this.Bounds.X + (this.Bounds.Width / 2) + map.X, 
+                    this.Bounds.Y + (this.Bounds.Height / 2) + map.Y);
+                ctx.lineTo(
+                    this.Target.X + map.X, 
+                    this.Target.Y + map.Y);
+                ctx.stroke();
+            }    
     }
 }
