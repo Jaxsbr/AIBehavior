@@ -4,7 +4,9 @@ var init = function () {
     initKeyboardEvents();
     initMouseEvents();
     initImages();
-    intiGameVariables();
+    initMap();
+    initCPUs();
+    initResources();
     main();
 }
 
@@ -125,17 +127,27 @@ var initImages = function () {
     rogue1Image.src = "img/rogue1.png";
 }
 
-var intiGameVariables = function () {
-    initMap();
-
+var initCPUs = function () {
     cpuList.push(new CPU(400, 400, cpuStartSize, cpuStartSize, "yellow", cpuImage));
     cpuList.push(new CPU(800, 800, cpuStartSize, cpuStartSize, "blue", cpuImage));
     cpuList.push(new CPU(1200, 1200, cpuStartSize, cpuStartSize, "red", cpuImage));
     cpuList.push(new CPU(1600, 1400, cpuStartSize, cpuStartSize, "purple", cpuImage));
     cpuList.push(new CPU(2900, 1900, cpuStartSize, cpuStartSize, "orange", cpuImage));
+}
 
+var initMap = function () {
+    map = new Rect(0, 0, mapWidth, mapHeight);
+    mapView = new Rect(
+		_screenRect.Width - 150 - 10, _screenRect.Height - 100 - 10, 150, 100);
+
+    leftScreenMoveRect = new Rect(_screenRect.X, _screenRect.Y, 25, _screenRect.Height);
+    topScreenMoveRect = new Rect(_screenRect.X, _screenRect.Y, _screenRect.Width, 25);
+    rightScreenMoveRect = new Rect(_screenRect.Width - 25, _screenRect.Y, 25, _screenRect.Height);
+    bottomScreenMoveRect = new Rect(_screenRect.X, _screenRect.Height - 25, _screenRect.Width, 25);
+}
+
+var initResources = function () {
     maxResources = RandomBetween(minRandomResourceCount, maxRandomResourceCount);
-
 
     for (var i = 0; i < maxResources; i++) {
         // Prevent resource from spawning on a cpu.
@@ -163,17 +175,6 @@ var intiGameVariables = function () {
             }
         }
     }
-}
-
-var initMap = function () {
-    map = new Rect(0, 0, mapWidth, mapHeight);
-    mapView = new Rect(
-		_screenRect.Width - 150 - 10, _screenRect.Height - 100 - 10, 150, 100);
-
-    leftScreenMoveRect = new Rect(_screenRect.X, _screenRect.Y, 25, _screenRect.Height);
-    topScreenMoveRect = new Rect(_screenRect.X, _screenRect.Y, _screenRect.Width, 25);
-    rightScreenMoveRect = new Rect(_screenRect.Width - 25, _screenRect.Y, 25, _screenRect.Height);
-    bottomScreenMoveRect = new Rect(_screenRect.X, _screenRect.Height - 25, _screenRect.Width, 25);
 }
 
 var main = function () {

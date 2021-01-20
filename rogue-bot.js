@@ -59,7 +59,6 @@ RogueBot.prototype.UpdateAggressive = function (modifier) {
     // Find and follow the closest target containing a payload.	
     if (this.AttackTarget == null) {
         for (var i = 0; i < cpuList.length; i++) {
-            var targetFound = false;
             for (var x = 0; x < cpuList[i].Bots.length; x++) {
                 var dist = DistanceBetweenPoints(
 					cpuList[i].Bots[x].Centre, this.Centre);
@@ -68,7 +67,6 @@ RogueBot.prototype.UpdateAggressive = function (modifier) {
                 // This will often chose a bot that is not the closest
                 // possible match, but this will prevent looping all bots.
                 if (dist <= this.AttackRange) {
-                    targetFound = true;
                     this.AttackTarget = cpuList[i].Bots[x];
                     break;
                 }
@@ -81,13 +79,13 @@ RogueBot.prototype.UpdateAggressive = function (modifier) {
     }
     else {
         // Check intersection points.
-        // Roque follows and intersects bot, points are added
-        // for each successfull intersect. After x point deduct
-        // bot health.
+        if (IntersectRect(this.Bounds, this.AttackTarget.Bounds)) {
+            this.AttackTarget.TakeDamage();
+        }
 
         // Check if bot hp is 0.
-        if (true) {
-            //this.AttackTarget = null;
+        if (this.AttackTarget.HP <= 0) {
+            this.AttackTarget = null;
         }
     }
 

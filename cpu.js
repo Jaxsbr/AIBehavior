@@ -54,6 +54,9 @@ CPU.prototype.Update = function (modifier) {
             continue;
         }
         this.Bots[i].Update(modifier);
+        if (this.Bots[i].HP <= 0) {
+            this.Bots.splice(i, 1);
+        }
     }
 
     this.UpdateInfos(modifier);
@@ -128,7 +131,7 @@ CPU.prototype.DrawHPBar = function () {
 }
 
 CPU.prototype.CreateBot = function (cpu) {
-    var botCost = 100;
+    var botCost = 50;
 
     if (cpu.Resources.Iron < botCost) {
         return;

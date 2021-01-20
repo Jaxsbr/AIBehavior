@@ -26,6 +26,9 @@ function Bot(parentCPU) {
     this.HP = 10;
     this.MaxHP = this.HP;
 
+    this.DamageImmunityValue = 0;
+    this.DamageImmunityCount = 10;
+
     this.InVisualBounds = false;
 
     this.Target = new Point(0, 0);
@@ -118,7 +121,9 @@ Bot.prototype.Update = function (modifier) {
 		this.Bounds.Height);
 
     this.InVisualBounds =
-		IntersectRect(vRect, _screenRect) ? true : false;
+        IntersectRect(vRect, _screenRect) ? true : false;
+        
+    this.UpdateDamangeImmunity();    
 }
 
 Bot.prototype.UpdateInfos = function (modifier) {
@@ -267,6 +272,16 @@ Bot.prototype.UpdateMovement = function (modifier) {
     this.Bounds.Y += this.Velocity.Y;
 }
 
+Bot.prototype.UpdateDamangeImmunity = function (modifier) {
+    if (this.ImmuneToDamage) {
+        this.DamageImmunityValue += 0.1;
+        if (this.DamageImmunityValue >= this.DamageImmunityCount) {
+            this.DamageImmunityValue = 0;
+            this.ImmuneToDamage = false;
+        }
+    }
+}
+
 Bot.prototype.Draw = function () {
     if (!this.InVisualBounds) {
         return;
@@ -327,6 +342,13 @@ Bot.prototype.DrawHPBar = function () {
 		this.Bounds.Y - 8 + map.Y,
 		hpLength,
 		4);
+}
+
+Bot.prototype.TakeDamage = function () {
+    if (!this.ImmuneToDamage) {
+        this.HP -= 1;
+        this.ImmuneToDamage = true;
+    }
 }
 
 Bot.prototype.CheckAwareness = function () {
