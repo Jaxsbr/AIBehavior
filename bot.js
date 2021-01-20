@@ -296,14 +296,15 @@ Bot.prototype.Draw = function () {
 			this.Bounds.Height * multiplier);
 
         // Mark bot with color by drawing color rect over image
-        var w = this.Bounds.Width / 4;
-        var h = this.Bounds.Height / 4;
-        var x = this.Centre.X + map.X - (w / 2);
-        var y = this.Centre.Y + map.Y - (h / 2);
+        var x = this.Centre.X + map.X;
+        var y = this.Centre.Y + map.Y;
+        var radius = this.Bounds.Height - (this.Bounds.Height / 1.3);
 
         ctx.save();
         ctx.fillStyle = this.Color;
-        ctx.fillRect(x, y, w, h);
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, 2 * Math.PI);
+        ctx.fill();
         ctx.restore();
     }
     else {

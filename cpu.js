@@ -83,14 +83,15 @@ CPU.prototype.Draw = function () {
         ctx.drawImage(this.Image, this.Bounds.X + map.X, this.Bounds.Y + map.Y, this.Bounds.Width, this.Bounds.Height);
 
         // Mark cpu with color by drawing color rect over image
-        var w = this.Bounds.Width / 10;
-        var h = this.Bounds.Height / 10;
-        var x = this.Centre.X + map.X - (w / 2);
-        var y = this.Centre.Y + map.Y - (h / 2);
+        var x = this.Centre.X + map.X;
+        var y = this.Centre.Y + map.Y;
+        var radius = this.Bounds.Height - (this.Bounds.Height / 1.2);
 
         ctx.save();
         ctx.fillStyle = this.Color;
-        ctx.fillRect(x, y, w, h);
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, 2 * Math.PI);
+        ctx.fill();
         ctx.restore();
     }
 
