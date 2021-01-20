@@ -348,15 +348,12 @@ Bot.prototype.DrawDebug = function () {
     if (showDebug) {
 
         if (this.States.Searching === 1) {
-            ctx.save();
-            ctx.globalAlpha = 0.4;
-            ctx.fillStyle = 'violet';
-            ctx.fillRect(
+            ctx.strokeStyle = 'purple';
+            ctx.strokeRect(
                 this.ScanRect.X + map.X, 
                 this.ScanRect.Y + map.Y, 
                 this.ScanRect.Width, 
                 this.ScanRect.Height);
-            ctx.restore();
         }
 
 

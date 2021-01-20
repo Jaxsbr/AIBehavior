@@ -29,9 +29,9 @@ var grass1Image = new Image();
 var grass1Ready = false;
 
 var maxResources;
-var resourceSize = 20;
-var minRandomResourceCount = 150;
-var maxRandomResourceCount = 250;
+var resourceSize = 50;
+var minRandomResourceCount = 5;
+var maxRandomResourceCount = 25;
 var resourceImageDataList = [];
 var resourceImage = new Image();
 var resourceReady = false;
@@ -43,11 +43,11 @@ var verticalScreenMoveImage = new Image();
 var verticalScreenMoveReady = false;
 
 var cpuStartingHP = 1000;
-var cpuStartSize = 50;
+var cpuStartSize = 100;
 var cpuImage = new Image();
 var cpuReady = false;
 
-var startingBotSize = 15;
+var startingBotSize = 35;
 var startingBotSpeed = 50;
 var bot1Image = new Image();
 var bot1Ready = false;
@@ -55,7 +55,7 @@ var bot1Ready = false;
 var bot2Image = new Image();
 var bot2Ready = false;
 
-var rogueBotStartSize = 25;
+var rogueBotStartSize = 65;
 var rogue1Image = new Image();
 var rogue1Ready = false;
 
