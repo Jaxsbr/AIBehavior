@@ -90,18 +90,19 @@ Resource.prototype.Draw = function () {
             drawSelectionOrb(this.Bounds, this.Radius, color);
             this.DrawHPBar();
         }
-        return;
+        this.DrawDebug();
     }
+}
 
-
-    var percentage = this.Units * 100 / this.MaxUnits;
-    var capacityHeight = this.Bounds.Height * percentage / 100;
-
-    ctx.fillStyle = "maroon";
-    ctx.fillRect(this.Bounds.X + map.X, this.Bounds.Y + map.Y, this.Bounds.Width, this.Bounds.Height);
-
-    ctx.fillStyle = "gold";
-    ctx.fillRect(this.Bounds.X + map.X, this.Bounds.Y + map.Y, this.Bounds.Width, capacityHeight);
+Resource.prototype.DrawDebug = function () {
+    if (showDebug) {
+        ctx.strokeStyle = 'red';
+        ctx.strokeRect(
+            this.Bounds.X + map.X,
+            this.Bounds.Y + map.Y,
+            this.Bounds.Width, 
+            this.Bounds.Height);
+    }
 }
 
 Resource.prototype.DrawHPBar = function () {

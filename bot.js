@@ -318,6 +318,8 @@ Bot.prototype.Draw = function () {
         drawSelectionOrb(this.Bounds, this.Radius, this.Color);
         this.DrawHPBar();
     }
+
+    this.DrawDebug();
 }
 
 Bot.prototype.DrawHPBar = function () {
@@ -342,6 +344,17 @@ Bot.prototype.DrawHPBar = function () {
 		this.Bounds.Y - 8 + map.Y,
 		hpLength,
 		4);
+}
+
+Bot.prototype.DrawDebug = function () {
+    if (showDebug) {
+        ctx.strokeStyle = 'red';
+        ctx.strokeRect(
+            this.Bounds.X + map.X,
+            this.Bounds.Y + map.Y,
+            this.Bounds.Width, 
+            this.Bounds.Height);
+    }
 }
 
 Bot.prototype.TakeDamage = function () {

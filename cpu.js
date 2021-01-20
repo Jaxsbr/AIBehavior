@@ -104,6 +104,8 @@ CPU.prototype.Draw = function () {
             this.DrawHPBar();
         }
     }
+
+    this.DrawDebug();
 }
 
 CPU.prototype.DrawHPBar = function () {
@@ -128,6 +130,17 @@ CPU.prototype.DrawHPBar = function () {
 		this.Bounds.Y - 16 + map.Y,
 		hpLength,
 		4);
+}
+
+CPU.prototype.DrawDebug = function () {
+    if (showDebug) {
+        ctx.strokeStyle = 'red';
+        ctx.strokeRect(
+            this.Bounds.X + map.X,
+            this.Bounds.Y + map.Y,
+            this.Bounds.Width, 
+            this.Bounds.Height);
+    }
 }
 
 CPU.prototype.CreateBot = function (cpu) {

@@ -446,6 +446,10 @@ var keyPress = function (keyCode) {
     if (keyCode == 110) { // N
         showDevText = !showDevText;
     }
+
+    if (keyCode == 100) { // D
+        showDebug = !showDebug;
+    }
 }
 
 var mouseDown = function (x, y) {

@@ -2,6 +2,7 @@ var canvas;
 var ctx;
 var then;
 var showDevText = false;
+var showDebug = false;
 
 var _keys = {};
 var _leftMouseDown = false;

@@ -133,5 +133,18 @@ RogueBot.prototype.Draw = function () {
 		this.Bounds.X + map.X,
 		this.Bounds.Y + map.Y,
 		this.Bounds.Width,
-		this.Bounds.Height);
+        this.Bounds.Height);
+        
+    this.DrawDebug();    
+}
+
+RogueBot.prototype.DrawDebug = function () {
+    if (showDebug) {
+        ctx.strokeStyle = 'red';
+        ctx.strokeRect(
+            this.Bounds.X + map.X,
+            this.Bounds.Y + map.Y,
+            this.Bounds.Width, 
+            this.Bounds.Height);
+    }
 }
