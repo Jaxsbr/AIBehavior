@@ -138,10 +138,8 @@ Bot.prototype.UpdateInfos = function (modifier) {
 }
 
 Bot.prototype.UpdateSearching = function (modifier) {
-    // Bot will search for resource objects by random movements
-    // and scanning areas. When resource found, it will be added
-    // to the CPU's resource list.
-    // Bot will change states to harvesting.
+    // Bot will search for resource objects by random movements and scanning areas.
+    // Once found a Bot will change states to harvesting and start collection the resource for the CPU.
     for (var i = 0; i < resources.length; i++) {
         if (IntersectRect(this.ScanRect, resources[i].Bounds)) {
             if (resources[i].Units > 0) {
@@ -173,20 +171,20 @@ Bot.prototype.UpdateHarvesting = function (modifier) {
     }
 
     if (this.PayloadUnits < this.MaxPayload) {
-        // TODO: Ensure resource is in harvest range.
         // Perform harvest.
         if (IntersectRect(this.CurrentResource.Bounds, this.Bounds)) {
             if (this.CurrentResource.Units == 0) {
+                // Resource depleted				
                 this.CurrentResource = null;
             }
             else if (this.CurrentResource.Units < this.MaxPayload && this.CurrentResource.Units > 0) {
-                // Resource depleted				
+                // Resource partially depleted				
                 // TODO:
                 // Since this is only a partial harvest, the harvest tick should also
                 // only be partial of the normal. Full time will apply until fixed.
                 this.HarvestTick = this.CurrentResource.HarvestingModifier;
                 this.PayloadUnits += this.CurrentResource.Units;
-                this.CurrentResource.Units -= this.CurrentResource.Units;
+                this.CurrentResource.Units = 0;
                 if (this.CurrentResource.Type == "Iron") {
                     this.PayloadType.Iron = 1;
                 }
@@ -354,6 +352,18 @@ Bot.prototype.DrawDebug = function () {
             this.Bounds.Y + map.Y,
             this.Bounds.Width, 
             this.Bounds.Height);
+
+        if (this.Target) {
+            ctx.strokeStyle = 'blue';
+            ctx.beginPath();
+            ctx.moveTo(
+                this.Bounds.X + (this.Bounds.Width / 2) + map.X, 
+                this.Bounds.Y + (this.Bounds.Height / 2) + map.Y);
+            ctx.lineTo(
+                this.Target.X + map.X, 
+                this.Target.Y + map.Y);
+            ctx.stroke();
+        }
     }
 }
 
