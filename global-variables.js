@@ -65,3 +65,6 @@ var rogueBots = [];
 
 var selectedGameObject = null;
 var actionMenu = null;
+
+var backgroundTileWidth = 1024;
+var backgroundTileHeight = 1024;

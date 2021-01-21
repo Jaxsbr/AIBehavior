@@ -89,7 +89,7 @@ var initImages = function () {
     grass1Image.onload = function () {
         grass1Ready = true;
     }
-    grass1Image.src = "img/grass3.png";
+    grass1Image.src = "img/grass1.jpg";
 
     resourceImage.onload = function () {
         resourceReady = true;
@@ -109,22 +109,22 @@ var initImages = function () {
     cpuImage.onload = function () {
         cpuReady = true;
     }
-    cpuImage.src = "img/cpu1.png";
+    cpuImage.src = "img/cpu3.png";
 
     bot1Image.onload = function () {
         bot1Ready = true;
     }
-    bot1Image.src = "img/bot1.png";
+    bot1Image.src = "img/bot3.png";
 
     bot2Image.onload = function () {
         bot2Ready = true;
     }
-    bot2Image.src = "img/bot2.png";
+    bot2Image.src = "img/bot3.png";
 
     rogue1Image.onload = function () {
         rogue1Ready = true;
     }
-    rogue1Image.src = "img/rogue1.png";
+    rogue1Image.src = "img/rogue2.png";
 }
 
 var initCPUs = function () {
@@ -278,13 +278,13 @@ var draw = function (modifier) {
 }
 
 var drawBackground = function () {
-    var cols = map.Width / 300;
-    var rows = map.Height / 200;
+    var cols = map.Width / backgroundTileWidth;
+    var rows = map.Height / backgroundTileHeight;
 
     for (var c = 0; c < cols; c++) {
         for (var r = 0; r < rows; r++) {
             if (grass1Ready) {
-                ctx.drawImage(grass1Image, c * 300 + map.X, r * 200 + map.Y);
+                ctx.drawImage(grass1Image, c * backgroundTileWidth + map.X, r * backgroundTileHeight + map.Y);
             }
         }
     }
