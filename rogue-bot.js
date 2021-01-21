@@ -1,6 +1,6 @@
 
 function RogueBot(x, y, width, height, image) {
-    this.Bounds = new Rect(x, y, width, height);
+    CollisionEntity.call(this, new Rect(x, y, width, height));
     this.Centre = new Point(this.Bounds.X + (this.Bounds.Width / 2), this.Bounds.Y + (this.Bounds.Height / 2));
     this.Image = image;
     this.States = { Neutral: 1, Aggressive: 0 };
@@ -21,6 +21,8 @@ function RogueBot(x, y, width, height, image) {
     this.AttackRange = 235;
     this.AttackTarget = null; // This is a bot.
 }
+
+RogueBot.prototype = Object.create(CollisionEntity.prototype);
 
 RogueBot.prototype.Update = function (modifier) {
     this.Centre = new Point(this.Bounds.X + (this.Bounds.Width / 2), this.Bounds.Y + (this.Bounds.Height / 2));
@@ -124,8 +126,7 @@ RogueBot.prototype.UpdateMovement = function (modifier) {
         this.Velocity.Y -= this.SteerForce;
     }
 
-    this.Bounds.X += this.Velocity.X;
-    this.Bounds.Y += this.Velocity.Y;
+    this.ApplyVelocity(this.Velocity);
 }
 
 RogueBot.prototype.Draw = function () {
@@ -160,3 +161,5 @@ RogueBot.prototype.DrawDebug = function () {
             }    
     }
 }
+
+RogueBot.prototype.constructor = RogueBot;

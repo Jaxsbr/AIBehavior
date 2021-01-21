@@ -30,8 +30,8 @@ var grass1Ready = false;
 
 var maxResources;
 var resourceSize = 50;
-var minRandomResourceCount = 150;
-var maxRandomResourceCount = 250;
+var minRandomResourceCount = 15;
+var maxRandomResourceCount = 25;
 var resourceImageDataList = [];
 var resourceImage = new Image();
 var resourceReady = false;
@@ -49,7 +49,7 @@ var cpuReady = false;
 
 var botCost = 150;
 var startingBotSize = 35;
-var startingBotSpeed = 50;
+var startingBotSpeed = 150;
 var bot1Image = new Image();
 var bot1Ready = false;
 

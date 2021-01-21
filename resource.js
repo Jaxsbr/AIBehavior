@@ -1,4 +1,5 @@
 function Resource(type, x, y, width, height, image) {
+    CollisionEntity.call(this, new Rect(x, y, width, height));
     this.Title = type + " Resource";
     this.Selected = false;
     this.Type = type;
@@ -22,6 +23,8 @@ function Resource(type, x, y, width, height, image) {
     this.Actions = [];
     this.SetupActionMenu();
 }
+
+Resource.prototype = Object.create(CollisionEntity.prototype);
 
 Resource.prototype.SetupActionMenu = function () {
     this.Description.push(this.Type + " Resource");
@@ -128,3 +131,5 @@ Resource.prototype.DrawHPBar = function () {
 		hpLength,
 		4);
 }
+
+Resource.prototype.constructor = Resource;

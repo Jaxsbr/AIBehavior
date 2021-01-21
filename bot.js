@@ -1,9 +1,10 @@
 
 function Bot(parentCPU) {
+    var bounds = new Rect(0, 0, startingBotSize, startingBotSize);
+    CollisionEntity.call(this, bounds)
     this.Title = "BOT"
     this.Image = null;
     this.Selected = false;
-    this.Bounds = new Rect(0, 0, startingBotSize, startingBotSize);
     this.PayloadUnits = 0;
     this.MaxPayload = 10;
     this.CurrentResource = null;
@@ -48,6 +49,8 @@ function Bot(parentCPU) {
     this.Actions = [];
     this.SetupActionMenu();
 }
+
+Bot.prototype = Object.create(CollisionEntity.prototype);
 
 Bot.prototype.SetupActionMenu = function () {
     this.Description.push("The Bot is the worker bee.");
@@ -276,8 +279,7 @@ Bot.prototype.UpdateMovement = function (modifier) {
         this.Velocity.Y -= this.SteerForce;
     }
 
-    this.Bounds.X += this.Velocity.X;
-    this.Bounds.Y += this.Velocity.Y;
+    this.ApplyVelocity(this.Velocity);
 }
 
 Bot.prototype.UpdateDamangeImmunity = function (modifier) {
@@ -401,3 +403,5 @@ Bot.prototype.CheckAwareness = function () {
         this.Awareness += 1;
     }
 }
+
+Bot.prototype.constructor = Bot;

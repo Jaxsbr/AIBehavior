@@ -1,10 +1,10 @@
 
 function CPU(x, y, width, height, color, image) {
+    CollisionEntity.call(this, new Rect(x, y, width, height));
     this.Title = "CENTRAL PROCESS UNIT";
     this.Description = [];
     this.Selected = false;
     this.Color = color;
-    this.Bounds = new Rect(x, y, width, height);
     this.Centre = new Point(this.Bounds.X + (this.Bounds.Width / 2), this.Bounds.Y + (this.Bounds.Height / 2))
     this.Radius = DistanceBetweenPoints(new Point(this.Bounds.X, this.Bounds.Y), this.Centre);
     this.Bots = []; // Workers
@@ -24,6 +24,8 @@ function CPU(x, y, width, height, color, image) {
     this.Actions = [];
     this.SetupActionMenu();
 }
+
+CPU.prototype = Object.create(CollisionEntity.prototype);
 
 CPU.prototype.SetupActionMenu = function () {
     this.Description.push("The CPU is the base of");
@@ -177,3 +179,5 @@ CPU.prototype.ToggleDefence = function (cpu) {
 
     }
 }
+
+CPU.prototype.constructor = CPU;
