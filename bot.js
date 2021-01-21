@@ -65,29 +65,17 @@ Bot.prototype.SetupActionMenu = function () {
 }
 
 Bot.prototype.Update = function (modifier) {
+    multiplier = this.States.Mutating == 1 ? 1.5 : 1;
+    this.Bounds.Width = startingBotSize * multiplier;
+    this.Bounds.Height = startingBotSize * multiplier;
+
+
     this.Centre = new Point(this.Bounds.X + (this.Bounds.Width / 2), this.Bounds.Y + (this.Bounds.Height / 2));
     this.Radius = DistanceBetweenPoints(new Point(this.Bounds.X, this.Bounds.Y), this.Centre);
 
-    if (this.Awareness >= this.MutateValue) {
-        this.States.Searching = 0;
-        this.States.Harvesting = 0;
-        this.States.Defending = 0;
-        this.States.Mutating = 1;
-    }
+    this.UpdateMutating(modifier);
 
-    if (this.States.Mutating == 1) {
-        // TODO:
-        // Count down mutating.
-        if (!this.Mutated) {
-            this.MutateElapsed += 0.1;
-            if (this.MutateElapsed >= this.MutateTick) {
-                this.Mutated = true;
-                // This should be the last time
-                // this bot was updated before turning into a rogue..				
-            }
-        }
-    }
-    else {
+    if (this.States.Mutating !== 1) {
         if (this.States.Defending == 1) {
             this.UpdateDefending(modifier);
         }
@@ -124,6 +112,28 @@ Bot.prototype.Update = function (modifier) {
         IntersectRect(vRect, _screenRect) ? true : false;
         
     this.UpdateDamangeImmunity();    
+}
+
+Bot.prototype.UpdateMutating = function (modifier) {
+    if (this.Awareness >= this.MutateValue) {
+        this.States.Searching = 0;
+        this.States.Harvesting = 0;
+        this.States.Defending = 0;
+        this.States.Mutating = 1;
+    }
+
+    if (this.States.Mutating == 1) {
+        // TODO:
+        // Count down mutating.
+        if (!this.Mutated) {
+            this.MutateElapsed += 0.1;
+            if (this.MutateElapsed >= this.MutateTick) {
+                this.Mutated = true;
+                // This should be the last time
+                // this bot was updated before turning into a rogue..				
+            }
+        }
+    }
 }
 
 Bot.prototype.UpdateInfos = function (modifier) {
@@ -287,13 +297,12 @@ Bot.prototype.Draw = function () {
 
     ctx.save();
     if (this.Image) {
-        var multiplier = this.States.Mutating == 1 ? 2 : 1;
 
         ctx.drawImage(this.Image,
 			this.Bounds.X + map.X,
 			this.Bounds.Y + map.Y,
-			this.Bounds.Width * multiplier,
-			this.Bounds.Height * multiplier);
+			this.Bounds.Width,
+			this.Bounds.Height);
 
         // Mark bot with color by drawing color rect over image
         var x = this.Centre.X + map.X;

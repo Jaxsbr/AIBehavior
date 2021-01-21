@@ -145,8 +145,6 @@ CPU.prototype.DrawDebug = function () {
 }
 
 CPU.prototype.CreateBot = function (cpu) {
-    var botCost = 50;
-
     if (cpu.Resources.Iron < botCost) {
         return;
     }
