@@ -1,6 +1,6 @@
 
 function RogueBot(x, y, width, height, image) {
-    CollisionEntity.call(this, new Rect(x, y, width, height));
+    CollisionEntity.call(this, new Rect(x, y, width, height), true);
     this.Centre = new Point(this.Bounds.X + (this.Bounds.Width / 2), this.Bounds.Y + (this.Bounds.Height / 2));
     this.Image = image;
     this.States = { Neutral: 1, Aggressive: 0 };

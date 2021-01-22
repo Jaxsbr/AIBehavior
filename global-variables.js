@@ -25,6 +25,10 @@ var screenMoveElapsed = 0;
 var screenMoveStates = { left: 0, top: 0, right: 0, bottom: 0 };
 var showMap = false;
 
+var collisionEntityIndex = -1;
+var collisionEntities = [];
+var baseCollisionForce = 1.1;
+
 var grass1Image = new Image();
 var grass1Ready = false;
 

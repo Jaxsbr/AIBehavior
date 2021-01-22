@@ -1,5 +1,5 @@
 function Resource(type, x, y, width, height, image) {
-    CollisionEntity.call(this, new Rect(x, y, width, height));
+    CollisionEntity.call(this, new Rect(x, y, width, height), false);
     this.Title = type + " Resource";
     this.Selected = false;
     this.Type = type;

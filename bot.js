@@ -1,7 +1,7 @@
 
 function Bot(parentCPU) {
     var bounds = new Rect(0, 0, startingBotSize, startingBotSize);
-    CollisionEntity.call(this, bounds)
+    CollisionEntity.call(this, bounds, true);
     this.Title = "BOT"
     this.Image = null;
     this.Selected = false;

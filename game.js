@@ -211,6 +211,8 @@ var updateGameVariables = function (modifier) {
     if (!(actionMenu == "undefined" || actionMenu == null)) {
         actionMenu.Update();
     }
+
+    UpdateAllEntityCollisions();
 }
 
 var updateScreenViewMovement = function (modifier) {

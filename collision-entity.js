@@ -1,5 +1,9 @@
-function CollisionEntity(bounds) {
+function CollisionEntity(bounds, isDynamic) {
     this.Bounds = bounds;
+    this.IsDynamic = isDynamic;
+    collisionEntityIndex += 1;
+    this.Id = collisionEntityIndex;
+    collisionEntities.push(this);
 }
 
 CollisionEntity.prototype.ApplyVelocity = function(velocity) {

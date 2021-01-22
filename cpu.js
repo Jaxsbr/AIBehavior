@@ -1,6 +1,6 @@
 
 function CPU(x, y, width, height, color, image) {
-    CollisionEntity.call(this, new Rect(x, y, width, height));
+    CollisionEntity.call(this, new Rect(x, y, width, height), false);
     this.Title = "CENTRAL PROCESS UNIT";
     this.Description = [];
     this.Selected = false;
@@ -50,6 +50,7 @@ CPU.prototype.Update = function (modifier) {
             var location = new Point(this.Bots[i].Bounds.X, this.Bots[i].Bounds.Y);
             var selected = this.Bots[i].Selected;
             this.Bots.splice(i, 1);
+            collisionEntities.splice(this.Id, 0);
 
             // Bot is officially self aware.
             addRogueBot(location, selected);
@@ -58,6 +59,7 @@ CPU.prototype.Update = function (modifier) {
         this.Bots[i].Update(modifier);
         if (this.Bots[i].HP <= 0) {
             this.Bots.splice(i, 1);
+            collisionEntities.splice(this.Id, 0);
         }
     }
 
