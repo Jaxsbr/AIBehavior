@@ -27,15 +27,15 @@ var showMap = false;
 
 var collisionEntityIndex = -1;
 var collisionEntities = [];
-var baseCollisionForce = 1.1;
+var baseCollisionForce = 0.3;
 
 var grass1Image = new Image();
 var grass1Ready = false;
 
 var maxResources;
 var resourceSize = 50;
-var minRandomResourceCount = 15;
-var maxRandomResourceCount = 25;
+var minRandomResourceCount = 50;
+var maxRandomResourceCount = 100;
 var resourceImageDataList = [];
 var resourceImage = new Image();
 var resourceReady = false;
@@ -51,9 +51,9 @@ var cpuStartSize = 100;
 var cpuImage = new Image();
 var cpuReady = false;
 
-var botCost = 150;
+var botCost = 50;
 var startingBotSize = 35;
-var startingBotSpeed = 150;
+var startingBotSpeed = 110;
 var bot1Image = new Image();
 var bot1Ready = false;
 

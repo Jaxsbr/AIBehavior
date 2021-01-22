@@ -80,18 +80,20 @@ var UpdateCollision = function (thisCollisionEntity, nearestCollisionEntity) {
 
         var myReverseVelocity = new Point(myValue * collisionVector.X, myValue * collisionVector.Y);
 
+        var appliedCollisionForce = (nearestCollisionEntity.Bounds.Height / 100 * baseCollisionForce) + baseCollisionForce;
+
         if (myReverseVelocity.X < 0) {
-            myReverseVelocity.X = myReverseVelocity.X < -baseCollisionForce ? -baseCollisionForce : myReverseVelocity.X;
+            myReverseVelocity.X = myReverseVelocity.X < -appliedCollisionForce ? -appliedCollisionForce : myReverseVelocity.X;
         }
         else if (myReverseVelocity.X > 0) {
-            myReverseVelocity.X = myReverseVelocity.X > baseCollisionForce ? baseCollisionForce : myReverseVelocity.X;
+            myReverseVelocity.X = myReverseVelocity.X > appliedCollisionForce ? appliedCollisionForce : myReverseVelocity.X;
         }
 
         if (myReverseVelocity.Y < 0) {
-            myReverseVelocity.Y = myReverseVelocity.Y < -baseCollisionForce ? -baseCollisionForce : myReverseVelocity.Y;
+            myReverseVelocity.Y = myReverseVelocity.Y < -appliedCollisionForce ? -appliedCollisionForce : myReverseVelocity.Y;
         }
         else if (myReverseVelocity.Y > 0) {
-            myReverseVelocity.Y = myReverseVelocity.Y > baseCollisionForce ? baseCollisionForce : myReverseVelocity.Y;
+            myReverseVelocity.Y = myReverseVelocity.Y > appliedCollisionForce ? appliedCollisionForce : myReverseVelocity.Y;
         }
 
         thisCollisionEntity.ApplyVelocity(new Point(-myReverseVelocity.X, -myReverseVelocity.Y));
